@@ -6,7 +6,7 @@ rule xgboost-block-unsafe-patterns {
   priority 90
   severity error
   DENY write
-  IF path GLOB "**/*" AND content CONTAINS "UNSAFE_xgboost_PATTERN"
+  IF path GLOB "**/*" AND content CONTAINS "xgboost.train("
   MESSAGE "Blocked an unsafe pattern in xgboost. Use the recommended best practices for 2025/2026."
 }
 
@@ -14,7 +14,7 @@ rule xgboost-force-updated-api {
   enabled true
   priority 80
   severity warning
-  ASK write
-  IF path GLOB "**/*" AND content CONTAINS "OLD_xgboost_API"
+  LOG write
+  IF path GLOB "**/*" AND content CONTAINS "xgboost.DMatrix"
   MESSAGE "You are using an outdated API for xgboost. Please upgrade to the newer API."
 }
